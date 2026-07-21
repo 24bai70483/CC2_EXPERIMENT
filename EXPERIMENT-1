@@ -1,0 +1,55 @@
+EXPERIMENT- 1.1 CONTAIN DUPLICATE (LEETCODE PROBLEM 217)
+
+1) AIM:- Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+2) ALGORITHM:-
+1. Sort the given array nums in ascending order.
+2. Traverse the array from the second element (i = 1) to the last element.
+3. Compare the current element nums[i] with the previous element nums[i-1].
+4. If both elements are equal, a duplicate exists, so return true.
+5. If the loop finishes without finding equal adjacent elements, return false.
+
+3) CODE:-
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        for(int i=1;i<nums.size();i++){
+            if(nums[i]==nums[i-1]){
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+EXPERIMENT- 1.2 CONTAIN DUPLICATE 2 (LEETCODE PROBLEM 219)
+
+1) AIM:-Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.
+
+2) ALGORITHM:- 
+1. Create an unordered map mp to store each number and its latest index.
+2. Traverse the array from left to right using index i.
+3. For every element nums[i]:
+       A) Check whether nums[i] already exists in the map.
+       B) If it exists, calculate the distance between the current index and its previous index:
+abs(i - mp[nums[i]])
+       C) If this distance is less than or equal to k, return true.
+4. Update the map with the current element and its current index:
+mp[nums[i]] = i
+5. If the complete array is traversed without finding a nearby duplicate, return false.
+
+3) CODE:- 
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        unordered_map<int,int> mp;
+        for(int i=0;i<nums.size();i++){
+            if(mp.find(nums[i])!=mp.end() && abs(i-mp[nums[i]])<=k){
+                return true;
+            }
+        mp[nums[i]]=i;
+            
+        }
+        return false;
+    }
